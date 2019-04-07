@@ -13,6 +13,15 @@ to MQTT. If you want to use an external LED (i.e. not the onboard one) change CO
 be the pin the LED is connected to. Change CONFIG_LED_ON and CONFIG_LED_OFF to indicate if this
 pin should be LOW or HIGH to turn your LED on or off. The default uses the onboard LED.
 
+### Speed switch
+
+In the function readSpeedSwitch() in mqtt-fan.ino it is trying to determine where you set the switch
+to based on the input voltage. My original circuit has a 1k resisitor between 0V and the low speed setting,
+1k between low and medium, and 1k between medium and high. The high setting then connects to +3.3V. (Note that
+with the NodeMCU board the analog input should be between 0-3V3, but with the raw ESP modele itself, this is
+between 0-1V) The values it is checking for in this function were the approximate midpoints between the expected
+readings I got for each of the swtich settings. If your circuit is different you might need different values here.
+
 ## WiFi Setup
 
 When first powered up the flash config will not be configured. The device will go into access point
